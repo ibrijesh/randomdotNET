@@ -1,6 +1,6 @@
 namespace randomdotNET.Services;
 
-public class IExampleService
+public interface IExampleService
 {
-    
+    string GetExample();
 }
