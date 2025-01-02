@@ -1,3 +1,4 @@
+using randomdotNET.Repository;
 using randomdotNET.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IExampleService, ExampleService>();
+builder.Services.AddSingleton<CustomerRepository>();
+builder.Services.AddSingleton<CustomerService>();
 
 var app = builder.Build();
 
@@ -20,5 +23,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapGet("/example", (IExampleService exampleService) => exampleService.GetExample());
+
+app.MapGet("/customer", (CustomerService customerService) => customerService.GetCustomerById(1));
 
 app.Run();
