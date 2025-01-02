@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IExampleService, ExampleService>();
-builder.Services.AddSingleton<CustomerRepository>();
-builder.Services.AddSingleton<CustomerService>();
+builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
+builder.Services.AddSingleton<ICustomerService, CustomerService>();
 
 var app = builder.Build();
 
@@ -24,6 +24,6 @@ app.UseHttpsRedirection();
 
 app.MapGet("/example", (IExampleService exampleService) => exampleService.GetExample());
 
-app.MapGet("/customer", (CustomerService customerService) => customerService.GetCustomerById(1));
+app.MapGet("/customer", (ICustomerService customerService) => customerService.GetCustomerById(1));
 
 app.Run();

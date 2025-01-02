@@ -3,17 +3,17 @@ using randomdotNET.Repository;
 
 namespace randomdotNET.Services;
 
-public class CustomerService
+public class CustomerService : ICustomerService
 {
-    private CustomerRepository customerRepository;
+    private readonly ICustomerRepository _customerRepository;
 
-    public CustomerService()
+    public CustomerService(ICustomerRepository customerRepository)
     {
-        customerRepository = new CustomerRepository();
+        _customerRepository = customerRepository;
     }
 
     public Customer GetCustomerById(int id)
     {
-        return customerRepository.FetchCustomerById(id);
+        return _customerRepository.FetchCustomerById(id);
     }
 }

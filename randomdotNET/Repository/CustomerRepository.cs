@@ -2,7 +2,7 @@ using randomdotNET.Models;
 
 namespace randomdotNET.Repository;
 
-public class CustomerRepository
+public class CustomerRepository : ICustomerRepository
 {
     public Customer FetchCustomerById(int customerId)
     {
