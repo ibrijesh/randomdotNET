@@ -18,6 +18,18 @@ builder.Services.AddSingleton<IProductService, ProductService>();
 
 builder.Services.AddControllers();
 
+// configure CORS
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,5 +46,6 @@ app.MapGet("/example", (IExampleService exampleService) => exampleService.GetExa
 app.MapGet("/customer", (ICustomerService customerService) => customerService.GetCustomerById(1));
 
 app.MapControllers();
+app.UseCors("AllowSpecificOrigins");
 
 app.Run();
