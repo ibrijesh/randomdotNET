@@ -9,7 +9,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IExampleService, ExampleService>();
 builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
+builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
+builder.Services.AddSingleton<IProductRepository, ProductRepository>();
+
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
+builder.Services.AddSingleton<ICategoryService, CategoryService>();
+builder.Services.AddSingleton<IProductService, ProductService>();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -25,5 +32,7 @@ app.UseHttpsRedirection();
 app.MapGet("/example", (IExampleService exampleService) => exampleService.GetExample());
 
 app.MapGet("/customer", (ICustomerService customerService) => customerService.GetCustomerById(1));
+
+app.MapControllers();
 
 app.Run();
