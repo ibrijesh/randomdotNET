@@ -1,3 +1,4 @@
+using randomdotNET.FactoryPattern;
 using randomdotNET.Repository;
 using randomdotNET.Services;
 
@@ -15,6 +16,16 @@ builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<ICustomerService, CustomerService>();
 builder.Services.AddSingleton<ICategoryService, CategoryService>();
 builder.Services.AddSingleton<IProductService, ProductService>();
+
+// Notification Services
+
+// Register notifiers
+builder.Services.AddScoped<EmailNotifier>();
+builder.Services.AddScoped<SmsNotifier>();
+
+// Register the factory
+builder.Services.AddScoped<INotifierFactory, NotifierFactory>();
+
 
 builder.Services.AddControllers();
 
