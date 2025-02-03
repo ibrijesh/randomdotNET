@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using randomdotNET.Services;
@@ -6,6 +7,7 @@ namespace randomdotNET.Controller
 {
     [Route("api/productcategory")]
     [ApiController]
+    [Authorize]
     public class ProductCategoryController(IProductService productService, ICategoryService categoryService)
         : ControllerBase
     {

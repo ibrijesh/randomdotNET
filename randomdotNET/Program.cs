@@ -47,10 +47,11 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
-
+    
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -73,10 +74,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 
-// Configure the HTTP request pipeline.
 
-app.UseAuthentication();
-app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -92,5 +90,11 @@ app.MapGet("/customer", (ICustomerService customerService) => customerService.Ge
 
 app.MapControllers();
 app.UseCors("AllowSpecificOrigins");
+
+
+// Configure the HTTP request pipeline.
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
